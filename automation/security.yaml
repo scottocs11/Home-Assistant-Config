@@ -1,0 +1,123 @@
+#Security Automation
+- alias: Morning Automation
+  trigger:
+    platform: state
+    entity_id: sensor.hallway_motion_sensor
+    to: 'motion'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '05:00:00'
+    - condition: state
+      entity_id: input_boolean.morning_lights
+      state: 'off'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: group.insidelights
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.morning_lights
+  - service: script.cameras_off
+
+- alias: Cameras And Door Notifications On At Midnight
+  trigger:
+    platform: time
+    after: '00:00:01'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.kitchen_motion_sensor
+      state: 'clear'
+      for:
+        minutes: 10
+    - condition: state
+      entity_id: sensor.hallway_motion_sensor
+      state: 'clear'
+      for:
+        minutes: 10
+    - condition: state
+      entity_id: media_player.scottsplex
+      state: 'stopped'
+  action:
+  - service: script.cameras_on
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.door_notifications
+
+- alias: Cameras On At 1am
+  trigger:
+    platform: time
+    after: '01:00:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.kitchen_motion_sensor
+      state: 'clear'
+      for:
+        minutes: 10
+    - condition: state
+      entity_id: sensor.hallway_motion_sensor
+      state: 'clear'
+      for:
+        minutes: 10
+    - condition: state
+      entity_id: media_player.scottsplex
+      state: 'stopped'
+  action:
+  - service: script.cameras_on
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.door_notifications
+
+- alias: Actions When Everyone Leaves
+  trigger:
+    platform: state
+    entity_id: group.all_devices
+    to: 'not_home'
+    for:
+      minutes: 10
+  action:
+  - service: homeassistant.turn_off
+    entity_id: group.all_lights
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.entry_lights
+  - service: script.cameras_on
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.door_notifications
+
+- alias: Camera Motion Detection Off When Someone Arrives Home
+  trigger:
+    platform: state
+    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.marvin
+    to: 'home'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.amcrestlrmotion
+      state: 'on'
+    - condition: time
+      after: '00:00:01'
+      before: '05:00:00'
+  action:
+  - service: script.cameras_off
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.door_notifications
+
+- alias: Door Notifications Off When Someone Arrives Home
+  trigger:
+    platform: state
+    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.marvin
+    to: 'home'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.door_notifications
+      state: 'on'
+    - condition: time
+      after: '00:00:01'
+      before: '05:00:00'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.door_notifications

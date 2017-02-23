@@ -17,7 +17,7 @@ switch: !include switches.yaml
 light: !include lights.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include automation.yaml
+automation: !include_dir_merge_list automation
 camera: !include cameras.yaml
 script: !include scripts.yaml
 

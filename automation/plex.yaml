@@ -1,0 +1,29 @@
+#Plex Automation
+- alias: Plex Playing
+  trigger:
+    - platform: state
+      entity_id: media_player.scottsplex
+      to: 'playing'
+  action:
+      service: homeassistant.turn_off
+      entity_id: light.living_room_light, light.dining_light, light.hallway_light
+
+- alias: Plex Paused
+  trigger:
+    - platform: state
+      entity_id: media_player.scottsplex
+      to: 'paused'
+      for:
+        seconds: 4
+  action:
+      service: homeassistant.turn_on
+      entity_id: light.living_room_light, light.dining_light
+
+- alias: Plex Stopped
+  trigger:
+    - platform: state
+      entity_id: media_player.scottsplex
+      to: 'idle'
+  action:
+      service: homeassistant.turn_on
+      entity_id: light.living_room_light, light.dining_light

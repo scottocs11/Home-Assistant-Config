@@ -1,0 +1,72 @@
+#Notifications Automation
+- alias: Notify When Door Opens If No One Is Home
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_door, sensor.central_door, sensor.front_door, sensor.back_garage_door, sensor.garage_door
+    to: 'open'
+  condition:
+    condition: state
+    entity_id: input_boolean.door_notifications
+    state: 'on'
+  action:
+    service: notify.notify
+    data_template:
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} Opened
+
+- alias: Notify When Smoke Detector Detects Smoke
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_smoke_alarm, sensor.garage_smoke_alarm, sensor.hallway_smoke_alarm
+    to: 'smoke detected'
+  action:
+    service: notify.notify
+    data_template:
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} Detected Smoke
+
+- alias: Notify When Smoke Detector Detects CO
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_smoke_alarm, sensor.garage_smoke_alarm, sensor.hallway_smoke_alarm
+    to: 'carbon monoxide detected'
+  action:
+    service: notify.notify
+    data_template:
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} Detected Carbon Monoxide
+
+- alias: Notify When Garage Is Open After 10pm
+  trigger:
+    platform: state
+    entity_id: sensor.garage_door
+    to: 'open'
+  condition:
+    condition: time
+    after: '22:00:00'
+    before: '23:59:59'
+  action:
+    service: notify.notify
+    data:
+      message: "Garage Door is still open."
+
+- alias: Notify When Garage Is Open For 30 minutes
+  trigger:
+    platform: state
+    entity_id: cover.garage_door
+    to: 'open'
+    for:
+      minutes: 30
+  action:
+    service: notify.notify
+    data:
+      message: "Garage Door has been open 30 minutes."
+
+- alias: Notify When Home-Assistant Has An Update
+  trigger:
+  - platform: state
+    entity_id: updater.updater
+  action:
+    service: notify.notify
+    data:
+      message: "Home-Assistant has an update."
