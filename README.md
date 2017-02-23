@@ -19,6 +19,7 @@ So what you are going to see in my files is a configuration that deals mostly wi
 - SmartThings Hub
 - Lutron Caseta Hub
 - Lutron Caseta In-Wall Dimmers
+- MyQ Garage Door Opener
 - [Plex Media Server](https://www.plex.tv/)
 - Raspberry Pi with [OpenPHT](https://github.com/RasPlex/OpenPHT/releases)
 - [Amcrest 1080P POE Cameras](https://www.amazon.com/s/ref=nb_sb_noss/185-6939966-2857643?url=search-alias%3Daps&field-keywords=amcrest+poe+1080p&x=0&y=0)

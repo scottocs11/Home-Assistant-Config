@@ -41,6 +41,12 @@ device_tracker:
   interval_seconds: 30
   consider_home: 30
 
+#cover: #To be added in .39
+#  platform: myq
+#  username: !secret myq_username
+#  password: !secret myq_password
+#  type: chamberlain
+
 mqtt:
   broker: 127.0.0.1
   client_id: home-assistant
