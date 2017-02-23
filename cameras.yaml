@@ -1,0 +1,24 @@
+#Cameras
+- platform: generic
+  still_image_url: http://192.168.1.7/cgi-bin/snapshot.cgi?=channel=0
+  username: admin
+  password: !secret common_password
+  name: Living Room
+
+- platform: generic
+  still_image_url: http://192.168.1.8/cgi-bin/snapshot.cgi?=channel=0
+  username: admin
+  password: !secret common_password
+  name: Garage
+
+- platform: generic
+  still_image_url: http://192.168.1.9/cgi-bin/snapshot.cgi?=channel=0
+  username: admin
+  password: !secret common_password
+  name: Back Yard
+
+- platform: generic
+  still_image_url: http://192.168.1.10/cgi-bin/snapshot.cgi?=channel=0
+  username: admin
+  password: !secret common_password
+  name: Front Yard

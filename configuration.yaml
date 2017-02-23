@@ -1,0 +1,90 @@
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 223
+  unit_system: imperial
+  time_zone: America/New_York
+
+frontend:
+logbook:
+updater:
+sun:
+discovery:
+history:
+panel_iframe: !include panels.yaml
+switch: !include switches.yaml
+light: !include lights.yaml
+sensor: !include sensors.yaml
+group: !include groups.yaml
+automation: !include automation.yaml
+camera: !include cameras.yaml
+script: !include scripts.yaml
+
+notify:
+  platform: pushover
+  api_key: !secret pushover_api_key
+  user_key: !secret pushover_user_key
+
+http:
+  api_password: !secret common_password
+  ip_ban_enabled: True
+  login_attempts_threshold: 5
+
+device_tracker:
+  platform: asuswrt
+  host: 192.168.1.1
+  protocol: telnet
+  username: admin
+  password: !secret common_password
+  track_new_devices: no
+  interval_seconds: 30
+  consider_home: 30
+
+mqtt:
+  broker: 127.0.0.1
+  client_id: home-assistant
+  username: homeassistant
+  password: !secret common_password
+
+ifttt:
+  key: !secret ifttt_key
+
+media_player:
+- platform: plex
+
+input_boolean:
+  entry_lights:
+    name: Entry Lights
+    initial: on
+  door_notifications:
+    name: Door Notifications
+    initial: on
+  morning_lights:
+    name: Morning Lights
+    initial: on
+
+input_slider:
+  thermostat_cool_target:
+    name: Set Cool Target
+    min: 65
+    max: 75
+    step: 1
+    icon: mdi:target
+
+  thermostat_heat_target:
+    name: Set Heat Target
+    min: 65
+    max: 75
+    step: 1
+    icon: mdi:target
+
+input_select:
+  thermostat_mode:
+    name: Thermostat Mode
+    options:
+      - "auto"
+      - "off"
+      - "cool"
+      - "heat"
+    icon: mdi:target

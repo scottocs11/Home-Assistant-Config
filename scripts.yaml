@@ -1,0 +1,17 @@
+#Scripts
+ cameras_off:
+   sequence:
+   - service: switch.turn_off
+     data:
+       entity_id: switch.amcrestlrmotion
+   - service: switch.turn_off
+     data:
+       entity_id: switch.amcrestgaragemotion
+ cameras_on:
+   sequence:
+   - service: switch.turn_on
+     data:
+       entity_id: switch.amcrestlrmotion
+   - service: switch.turn_on
+     data:
+       entity_id: switch.amcrestgaragemotion

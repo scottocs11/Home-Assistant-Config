@@ -1,0 +1,135 @@
+#Groups
+  AllLights:
+    name: All Lights
+    view: no
+    entities:
+    - light.bedroom_light
+    - light.dining_light
+    - light.hallway_light
+    - light.kitchen_light
+    - light.living_room_light
+    - light.garage_light
+    - light.porch_light
+
+  InsideLights:
+    name: Inside Lights
+    view: no
+    entities:
+    - light.dining_light
+    - light.kitchen_light
+    - light.living_room_light
+    - light.hallway_light
+    
+  Automation:
+    name: Automation
+    entities:
+    - switch.amcrestlrmotion
+    - switch.amcrestgaragemotion
+    - switch.amcrestbackyardmotion
+    - switch.amcrestfrontyardmotion
+
+  Doors:
+    name: Doors
+    entities:
+    - sensor.kitchen_door
+    - sensor.central_door
+    - sensor.front_door
+    - sensor.back_garage_door
+    - sensor.garage_door
+
+  MotionSensors:
+    name: Motion Sensors
+    entities:
+    - sensor.hallway_motion_sensor
+    - sensor.garage_motion_sensor
+    - sensor.kitchen_motion_sensor
+
+  Cameras:
+    name: Cameras
+    entities:
+    - camera.living_room
+    - camera.garage
+    - camera.back_yard
+    - camera.front_yard
+
+  System:
+    name: System
+    entities:
+    - sensor.cpu_use
+    - sensor.disk_use_
+    - sensor.ram_free
+    - sensor.received_eth0
+    - sensor.sent_eth0
+    - sensor.last_boot
+
+  InputBooleans:
+    name: Input Booleans
+    entities:
+    - input_boolean.entry_lights
+    - input_boolean.door_notifications
+    - input_boolean.morning_lights
+
+  Thermostat:
+    name: Thermostat
+    entities:
+    - sensor.current_temperature
+    - sensor.thermostat_humidity
+    - sensor.cool_target
+    - input_slider.thermostat_cool_target
+    - sensor.heat_target
+    - input_slider.thermostat_heat_target
+    - sensor.thermostat_mode
+    - input_select.thermostat_mode
+    - sensor.thermostat_fan_mode
+    - sensor.thermostat_state
+
+
+  SmokeDetectors:
+    name: Smoke Detectors
+    entities:
+    - sensor.kitchen_smoke_alarm
+    - sensor.garage_smoke_alarm
+    - sensor.hallway_smoke_alarm
+
+#Tabs
+  default_view:
+    view: yes
+    entities:
+    - group.alllights
+    - group.doors
+    - device_tracker.Scott
+    - device_tracker.Gabe
+    - device_tracker.Marvin
+    - updater.updater
+    - group.motionsensors
+
+  CameraView:
+    name: Cameras
+    view: yes
+    entities:
+    - group.cameras
+
+  ThermostatView:
+    name: Thermostat
+    view: yes
+    entities:
+    - group.thermostat
+
+  SmokeDetectorView:
+    name: Smoke Detectors
+    view: yes
+    entities:
+    - group.smokedetectors
+
+  AutomationView:
+    name: Automation
+    view: yes
+    entities:
+    - group.automation
+    - group.inputbooleans
+
+  SystemView:
+    name: System
+    view: yes
+    entities:
+    - group.system
