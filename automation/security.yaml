@@ -97,8 +97,8 @@
       entity_id: switch.amcrestlrmotion
       state: 'on'
     - condition: time
-      after: '00:00:01'
-      before: '05:00:00'
+      after: '05:00:00'
+      before: '00:00:01'
   action:
   - service: script.cameras_off
   - service: input_boolean.turn_off
@@ -116,8 +116,8 @@
       entity_id: input_boolean.door_notifications
       state: 'on'
     - condition: time
-      after: '00:00:01'
-      before: '05:00:00'
+      after: '05:00:00'
+      before: '00:00:01'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.door_notifications
