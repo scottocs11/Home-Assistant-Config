@@ -14,27 +14,16 @@
       message: >
         {{ trigger.to_state.attributes.friendly_name }} Opened
 
-- alias: Notify When Smoke Detector Detects Smoke
+- alias: Notify When Smoke Detector Detects Smoke or Carbon Monoxide
   trigger:
     platform: state
-    entity_id: sensor.kitchen_smoke_alarm, sensor.garage_smoke_alarm, sensor.hallway_smoke_alarm
-    to: 'smoke detected'
+    entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector, sensor.kitchen_carbon_detector, sensor.garage_carbon_detector, sensor.hallway_carbon_detector
+    to: 'detected'
   action:
     service: notify.notify
     data_template:
       message: >
-        {{ trigger.to_state.attributes.friendly_name }} Detected Smoke
-
-- alias: Notify When Smoke Detector Detects CO
-  trigger:
-    platform: state
-    entity_id: sensor.kitchen_smoke_alarm, sensor.garage_smoke_alarm, sensor.hallway_smoke_alarm
-    to: 'carbon monoxide detected'
-  action:
-    service: notify.notify
-    data_template:
-      message: >
-        {{ trigger.to_state.attributes.friendly_name }} Detected Carbon Monoxide
+        {{ trigger.to_state.attributes.friendly_name }} Alarmed!
 
 - alias: Notify When Garage Is Open After 10pm
   trigger:

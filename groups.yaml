@@ -87,9 +87,12 @@
   SmokeDetectors:
     name: Smoke Detectors
     entities:
-    - sensor.kitchen_smoke_alarm
-    - sensor.garage_smoke_alarm
-    - sensor.hallway_smoke_alarm
+    - sensor.kitchen_smoke_detector
+    - sensor.kitchen_carbon_detector
+    - sensor.garage_smoke_detector
+    - sensor.garage_carbon_detector
+    - sensor.hallway_smoke_detector
+    - sensor.hallway_carbon_detector
 
 #Tabs
   default_view:

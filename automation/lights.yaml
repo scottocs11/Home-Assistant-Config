@@ -1,4 +1,20 @@
 #Lights Automation
+- alias: Bedroom Light on at 7am
+  trigger:
+    platform: time
+    after: '07:00:00'
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: homeassistant.turn_on
+    entity_id: light.bedroom_light
+
 - alias: Garage Lights On When Door Opens
   trigger:
     platform: state

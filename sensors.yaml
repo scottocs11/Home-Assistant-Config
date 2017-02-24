@@ -47,58 +47,22 @@
   retain: true
 
 - platform: mqtt
-  name: "Hallway Motion Sensor MQTT"
+  name: "Hallway Motion Sensor"
   state_topic: "smartthings/Hallway Motion Sensor/motion"
   retain: true
-
-- platform: template
-  sensors:
-    hallway_motion_sensor:
-      value_template: >-
-        {%- if is_state("sensor.hallway_motion_sensor_mqtt", "active") %}
-            motion
-        {%- elif is_state("sensor.hallway_motion_sensor_mqtt", "inactive") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Hallway Motion Sensor
+  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
 
 - platform: mqtt
-  name: "Garage Motion Sensor MQTT"
+  name: "Garage Motion Sensor"
   state_topic: "smartthings/Garage Motion Sensor/motion"
   retain: true
-
-- platform: template
-  sensors:
-    garage_motion_sensor:
-      value_template: >-
-        {%- if is_state("sensor.garage_motion_sensor_mqtt", "active") %}
-            motion
-        {%- elif is_state("sensor.garage_motion_sensor_mqtt", "inactive") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Garage Motion Sensor
+  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
 
 - platform: mqtt
-  name: "Kitchen Motion Sensor MQTT"
+  name: "Kitchen Motion Sensor"
   state_topic: "smartthings/Kitchen Motion Sensor/motion"
   retain: true
-
-- platform: template
-  sensors:
-    kitchen_motion_sensor:
-      value_template: >-
-        {%- if is_state("sensor.kitchen_motion_sensor_mqtt", "active") %}
-            motion
-        {%- elif is_state("sensor.kitchen_motion_sensor_mqtt", "inactive") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Kitchen Motion Sensor
+  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
 
 - platform: mqtt
   name: "Front Door"
@@ -126,82 +90,31 @@
   retain: true
 
 - platform: mqtt
-  name: "Kitchen Smoke Alarm MQTT"
+  name: "Kitchen Smoke Detector"
   state_topic: "smartthings/Kitchen Smoke Alarm/smoke"
   retain: true
 
 - platform: mqtt
-  name: "Kitchen Smoke Alarm Carbon MQTT"
+  name: "Kitchen Carbon Detector"
   state_topic: "smartthings/Kitchen Smoke Alarm/carbonMonoxide"
   retain: true
 
-- platform: template
-  sensors:
-    kitchen_smoke_alarm:
-      value_template: >-
-        {%- if is_state("sensor.kitchen_smoke_alarm_mqtt", "detected") %}
-            smoke detected
-        {%- elif is_state("sensor.kitchen_smoke_alarm_carbon_mqtt", "detected") %}
-            carbon monoxide detected
-        {%- elif is_state("sensor.kitchen_smoke_alarm_mqtt", "tested") %}
-            testing
-        {%- elif is_state("sensor.kitchen_smoke_alarm_mqtt", "clear") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Kitchen Smoke Alarm
-
 - platform: mqtt
-  name: "Hallway Smoke Alarm MQTT"
+  name: "Hallway Smoke Detector"
   state_topic: "smartthings/Hallway Smoke Alarm/smoke"
   retain: true
 
 - platform: mqtt
-  name: "Hallway Smoke Alarm Carbon MQTT"
+  name: "Hallway Carbon Detector"
   state_topic: "smartthings/Hallway Smoke Alarm/carbonMonoxide"
   retain: true
 
-- platform: template
-  sensors:
-    hallway_smoke_alarm:
-      value_template: >-
-        {%- if is_state("sensor.hallway_smoke_alarm_mqtt", "detected") %}
-            smoke detected
-        {%- elif is_state("sensor.hallway_smoke_alarm_carbon_mqtt", "detected") %}
-            carbon monoxide detected
-        {%- elif is_state("sensor.hallway_smoke_alarm_mqtt", "tested") %}
-            testing
-        {%- elif is_state("sensor.hallway_smoke_alarm_mqtt", "clear") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Hallway Smoke Alarm
-
 - platform: mqtt
-  name: "Garage Smoke Alarm MQTT"
+  name: "Garage Smoke Detector"
   state_topic: "smartthings/Garage Smoke Alarm/smoke"
   retain: true
 
 - platform: mqtt
-  name: "Garage Smoke Alarm Carbon MQTT"
+  name: "Garage Carbon Detector"
   state_topic: "smartthings/Garage Smoke Alarm/carbonMonoxide"
   retain: true
-
-- platform: template
-  sensors:
-    garage_smoke_alarm:
-      value_template: >-
-        {%- if is_state("sensor.garage_smoke_alarm_mqtt", "detected") %}
-            smoke detected
-        {%- elif is_state("sensor.garage_smoke_alarm_carbon_mqtt", "detected") %}
-            carbon monoxide detected
-        {%- elif is_state("sensor.garage_smoke_alarm_mqtt", "tested") %}
-            testing
-        {%- elif is_state("sensor.garage_smoke_alarm_mqtt", "clear") %}
-            clear
-        {% else %}
-            failed
-        {%- endif %}
-      friendly_name: Garage Smoke Alarm
