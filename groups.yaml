@@ -35,7 +35,7 @@
     - sensor.central_door
     - sensor.front_door
     - sensor.back_garage_door
-    - sensor.garage_door
+    - cover.garage_door
 
   MotionSensors:
     name: Motion Sensors

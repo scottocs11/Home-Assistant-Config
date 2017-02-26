@@ -1,24 +1,28 @@
 #Cameras
-- platform: generic
-  still_image_url: http://192.168.1.7/cgi-bin/snapshot.cgi?=channel=0
+- platform: amcrest
+  host: 192.168.1.7
   username: admin
   password: !secret common_password
+  stream_source: snapshot
   name: Living Room
 
-- platform: generic
-  still_image_url: http://192.168.1.8/cgi-bin/snapshot.cgi?=channel=0
+- platform: amcrest
+  host: 192.168.1.8
   username: admin
   password: !secret common_password
+  stream_source: snapshot
   name: Garage
 
-- platform: generic
-  still_image_url: http://192.168.1.9/cgi-bin/snapshot.cgi?=channel=0
+- platform: amcrest
+  host: 192.168.1.9
   username: admin
   password: !secret common_password
+  stream_source: snapshot
   name: Back Yard
 
-- platform: generic
-  still_image_url: http://192.168.1.10/cgi-bin/snapshot.cgi?=channel=0
+- platform: amcrest
+  host: 192.168.1.10
   username: admin
   password: !secret common_password
+  stream_source: snapshot
   name: Front Yard

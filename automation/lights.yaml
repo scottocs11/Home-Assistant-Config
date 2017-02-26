@@ -18,7 +18,7 @@
 - alias: Garage Lights On When Door Opens
   trigger:
     platform: state
-    entity_id: sensor.central_door, sensor.garage_door
+    entity_id: sensor.central_door, cover.garage_door
     to: 'open'
   action:
     service: homeassistant.turn_on

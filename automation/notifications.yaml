@@ -2,7 +2,7 @@
 - alias: Notify When Door Opens If No One Is Home
   trigger:
     platform: state
-    entity_id: sensor.kitchen_door, sensor.central_door, sensor.front_door, sensor.back_garage_door, sensor.garage_door
+    entity_id: sensor.kitchen_door, sensor.central_door, sensor.front_door, sensor.back_garage_door, cover.garage_door
     to: 'open'
   condition:
     condition: state
@@ -28,7 +28,7 @@
 - alias: Notify When Garage Is Open After 10pm
   trigger:
     platform: state
-    entity_id: sensor.garage_door
+    entity_id: cover.garage_door
     to: 'open'
   condition:
     condition: time

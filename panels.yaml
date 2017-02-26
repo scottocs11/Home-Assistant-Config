@@ -1,16 +1,16 @@
 #Panels
 radarr:
   title: 'Radarr'
-  url: 'http://[DDNS_URL]:7878'
+  url: 'http://sg611.asuscomm.com:7878'
 sonarr:
   title: 'Sonarr'
-  url: 'http://[DDNS_URL]:8989'
+  url: 'http://sg611.asuscomm.com:8989'
 nzbget:
   title: 'NZBGet'
-  url: 'http://[DDNS_URL]:6789'
+  url: 'http://sg611.asuscomm.com:6789'
 plexpy:
   title: 'PlexPy'
-  url: 'http://[DDNS_URL]:8181'
+  url: 'http://sg611.asuscomm.com:8181'
 plex:
   title: 'Plex'
-  url: 'http://[DDNS_URL]:32400/web/index.html'
+  url: 'http://sg611.asuscomm.com:32400/web/index.html'

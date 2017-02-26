@@ -6,6 +6,7 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
 
+config:
 frontend:
 logbook:
 updater:
@@ -17,7 +18,7 @@ switch: !include switches.yaml
 light: !include lights.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
-automation: !include_dir_merge_list automation
+automation: !include_dir_merge_list automation/
 camera: !include cameras.yaml
 script: !include scripts.yaml
 
@@ -41,11 +42,11 @@ device_tracker:
   interval_seconds: 30
   consider_home: 30
 
-#cover: #To be added in .39
-#  platform: myq
-#  username: !secret myq_username
-#  password: !secret myq_password
-#  type: chamberlain
+cover: #To be added in .39
+  platform: myq
+  username: !secret myq_username
+  password: !secret myq_password
+  type: chamberlain
 
 mqtt:
   broker: 127.0.0.1
@@ -77,6 +78,7 @@ input_slider:
     max: 75
     step: 1
     icon: mdi:target
+    #restore: restore_state
 
   thermostat_heat_target:
     name: Set Heat Target
@@ -84,6 +86,7 @@ input_slider:
     max: 75
     step: 1
     icon: mdi:target
+    #restore: restore_state
 
 input_select:
   thermostat_mode:
@@ -94,3 +97,4 @@ input_select:
       - "cool"
       - "heat"
     icon: mdi:target
+    #restore: restore_state

@@ -85,11 +85,6 @@
   retain: true
 
 - platform: mqtt
-  name: "Garage Door"
-  state_topic: "smartthings/Garage Door/door"
-  retain: true
-
-- platform: mqtt
   name: "Kitchen Smoke Detector"
   state_topic: "smartthings/Kitchen Smoke Alarm/smoke"
   retain: true
