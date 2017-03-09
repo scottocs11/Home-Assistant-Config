@@ -20,4 +20,4 @@ function addGlobalStyle(css) {
 
 //Changes size of camera view and changes number of columns
 //Set the max-width and column-count to your preferred settings
-addGlobalStyle('.column.ha-cards { max-width: 1400px !important; column-count: 2 !important; }');
+addGlobalStyle('.column.ha-cards { max-width: 70% !important; column-count: 2 !important; }');
