@@ -22,9 +22,9 @@
 
 ![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/2Cameras.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/3Thermostat.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/3Media.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/4Media.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/4Thermostat.png)
 
 ![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/5SmokeDetectors.png)
 
