@@ -2,7 +2,7 @@
 
 ## Devices
 
-- Raspberry Pi running [Home Assistant](https://home-assistant.io/), Mosquitto (MQTT), [SmartThings MQTT Bridge](https://github.com/stjohnjohnson/smartthings-mqtt-bridge), [PlexPy](https://github.com/JonnyWong16/plexpy), [SmartThings Lutron Caseta Integration](https://community.smartthings.com/t/beta-lutron-caseta-integration-using-raspberry-pi-pro-or-standard-bridge/62748), [Pi-Hole](https://pi-hole.net/)
+- Raspberry Pi running [Home Assistant](https://home-assistant.io/) and [PlexPy](https://github.com/JonnyWong16/plexpy)
 - Lutron Caseta Hub
 - Lutron Caseta In-Wall Dimmers
 - MyQ Garage Door Opener
