@@ -18,16 +18,16 @@
 - Zigbee Motion Sensors
 - Z-Wave Thermostat (2Gig CT100)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/1Home.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/1Home.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/2Cameras.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/2Cameras.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/3Media.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/3Media.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/4Thermostat.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/4Thermostat.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/5SmokeDetectors.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/5SmokeDetectors.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/6Automation.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/6Automation.png)
 
-![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/HASS%20Images/7System.png)
+![Home](https://raw.githubusercontent.com/scottocs11/Home-Assistant-Config/master/Images/7System.png)
