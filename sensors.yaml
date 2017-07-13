@@ -1,8 +1,8 @@
 #Sensors
 - platform: darksky
-  api_key: 433e7bcdee176830d6af6a63bca5dcf6
-  latitude: 35.1166232
-  longitude: -85.1380908
+  api_key: REDACTED
+  latitude: REDACTED
+  longitude: REDACTED
   monitored_conditions:
     - precip_intensity
 

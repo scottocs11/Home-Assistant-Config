@@ -47,8 +47,6 @@ camera: !include cameras.yaml
 script: !include scripts.yaml
 zwave:
   usb_path: /dev/ttyUSB0
-  #config_path: /srv/homeassistant/lib/python3.4/site-packages/python_openzwave/ozw_config
-  new_entity_ids: true
 recorder:
   purge_days: 3
 climate:
