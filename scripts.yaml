@@ -1,5 +1,5 @@
 #Scripts
- cameras_off:
+ inside_cameras_off:
    sequence:
    - service: switch.turn_off
      data:
@@ -7,7 +7,7 @@
    - service: switch.turn_off
      data:
        entity_id: switch.amcrestgaragemotion
- cameras_on:
+ inside_cameras_on:
    sequence:
    - service: switch.turn_on
      data:
@@ -15,3 +15,43 @@
    - service: switch.turn_on
      data:
        entity_id: switch.amcrestgaragemotion
+ outside_cameras_off:
+   sequence:
+   - service: switch.turn_off
+     data:
+       entity_id: switch.amcrestbackyardmotion
+   - service: switch.turn_off
+     data:
+       entity_id: switch.amcrestfrontyardmotion
+ outside_cameras_on:
+   sequence:
+   - service: switch.turn_on
+     data:
+       entity_id: switch.amcrestbackyardmotion
+   - service: switch.turn_on
+     data:
+       entity_id: switch.amcrestfrontyardmotion
+ morning_alarm:
+   sequence:
+     - service: homeassistant.turn_on
+       entity_id: light.bedroom_light
+       data:
+         brightness: 100
+     - service: homeassistant.turn_off
+       entity_id: switch.noise_machine
+     - service: media_player.select_source
+       data:
+         entity_id: media_player.spotify
+         source: Bedroom Dot
+     - service: media_player.shuffle_set
+       data:
+         entity_id: media_player.spotify
+         shuffle: true
+     - service: media_player.play_media
+       data:
+         entity_id: media_player.spotify
+         media_content_id: spotify:user:saltyjavvie1:playlist:1Y5GrrPQMNuBKhulyx5Bfq
+         media_content_type: playlist
+     - service: media_player.media_next_track
+       data:
+         entity_id: media_player.spotify

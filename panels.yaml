@@ -1,16 +1,21 @@
 #Panels
+yamleditor:
+  title: 'YAML Editor'
+  icon: mdi:wrench
+  url: 'http://sg611.duckdns.org:3218'
 radarr:
   title: 'Radarr'
-  url: 'http://sg611.asuscomm.com:7878'
+  icon: mdi:movie
+  url: 'http://sg611.duckdns.org:7878'
 sonarr:
   title: 'Sonarr'
-  url: 'http://sg611.asuscomm.com:8989'
+  icon: mdi:television
+  url: 'http://sg611.duckdns.org:8989'
 nzbget:
   title: 'NZBGet'
-  url: 'http://sg611.asuscomm.com:6789'
+  icon: mdi:download
+  url: 'http://sg611.duckdns.org:6789'
 plexpy:
   title: 'PlexPy'
-  url: 'http://sg611.asuscomm.com:8181'
-plex:
-  title: 'Plex'
-  url: 'http://sg611.asuscomm.com:32400/web/index.html'
+  icon: mdi:database
+  url: 'http://sg611.duckdns.org:8181'

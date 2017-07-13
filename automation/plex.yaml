@@ -14,10 +14,12 @@
       entity_id: media_player.scottsplex
       to: 'paused'
       for:
-        seconds: 4
+        seconds: 5
   action:
       service: homeassistant.turn_on
-      entity_id: light.living_room_light, light.dining_light
+      entity_id: light.living_room_light
+      data:
+        brightness: 50
 
 - alias: Plex Stopped
   trigger:
@@ -26,4 +28,6 @@
       to: 'idle'
   action:
       service: homeassistant.turn_on
-      entity_id: light.living_room_light, light.dining_light
+      entity_id: light.living_room_light
+      data:
+        brightness: 50

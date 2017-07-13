@@ -1,4 +1,11 @@
 #Sensors
+- platform: darksky
+  api_key: 433e7bcdee176830d6af6a63bca5dcf6
+  latitude: 35.1166232
+  longitude: -85.1380908
+  monitored_conditions:
+    - precip_intensity
+
 - platform: systemmonitor
   resources:
   - type: disk_use_percent
@@ -11,105 +18,87 @@
     arg: eth0
   - type: last_boot
 
-- platform: mqtt
-  name: "Current Temperature"
-  state_topic: "smartthings/Thermostat/temperature"
-  retain: true
-
-- platform: mqtt
-  name: "Thermostat State"
-  state_topic: "smartthings/Thermostat/thermostatOperatingState"
-  retain: true
-
-- platform: mqtt
-  name: "Heat Target"
-  state_topic: "smartthings/Thermostat/heatingSetpoint"
-  retain: true
-
-- platform: mqtt
-  name: "Cool Target"
-  state_topic: "smartthings/Thermostat/coolingSetpoint"
-  retain: true
-
-- platform: mqtt
-  name: "Thermostat Mode"
-  state_topic: "smartthings/Thermostat/thermostatMode"
-  retain: true
-
-- platform: mqtt
-  name: "Thermostat Fan Mode"
-  state_topic: "smartthings/Thermostat/thermostatFanMode"
-  retain: true
-
-- platform: mqtt
-  name: "Thermostat Humidity"
-  state_topic: "smartthings/Thermostat/humidity"
-  retain: true
-
-- platform: mqtt
-  name: "Hallway Motion Sensor"
-  state_topic: "smartthings/Hallway Motion Sensor/motion"
-  retain: true
-  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
-
-- platform: mqtt
-  name: "Garage Motion Sensor"
-  state_topic: "smartthings/Garage Motion Sensor/motion"
-  retain: true
-  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
-
-- platform: mqtt
-  name: "Kitchen Motion Sensor"
-  state_topic: "smartthings/Kitchen Motion Sensor/motion"
-  retain: true
-  value_template: '{% if value is equalto "active" %} motion {% elif value is equalto "inactive"%} clear {% else %} failed {% endif %}'
-
-- platform: mqtt
-  name: "Front Door"
-  state_topic: "smartthings/Front Door/contact"
-  retain: true
-
-- platform: mqtt
-  name: "Kitchen Door"
-  state_topic: "smartthings/Kitchen Door/contact"
-  retain: true
-
-- platform: mqtt
-  name: "Back Garage Door"
-  state_topic: "smartthings/Back Garage Door/contact"
-  retain: true
-
-- platform: mqtt
-  name: "Central Door"
-  state_topic: "smartthings/Central Door/contact"
-  retain: true
-
-- platform: mqtt
-  name: "Kitchen Smoke Detector"
-  state_topic: "smartthings/Kitchen Smoke Alarm/smoke"
-  retain: true
-
-- platform: mqtt
-  name: "Kitchen Carbon Detector"
-  state_topic: "smartthings/Kitchen Smoke Alarm/carbonMonoxide"
-  retain: true
-
-- platform: mqtt
-  name: "Hallway Smoke Detector"
-  state_topic: "smartthings/Hallway Smoke Alarm/smoke"
-  retain: true
-
-- platform: mqtt
-  name: "Hallway Carbon Detector"
-  state_topic: "smartthings/Hallway Smoke Alarm/carbonMonoxide"
-  retain: true
-
-- platform: mqtt
-  name: "Garage Smoke Detector"
-  state_topic: "smartthings/Garage Smoke Alarm/smoke"
-  retain: true
-
-- platform: mqtt
-  name: "Garage Carbon Detector"
-  state_topic: "smartthings/Garage Smoke Alarm/carbonMonoxide"
-  retain: true
+- platform: template
+  sensors:
+    hallway_motion:
+      friendly_name: "Hallway Motion"
+      value_template: '{% if is_state("binary_sensor.centralite_3305s_0405562d_1", "on") %} motion {% elif is_state("binary_sensor.centralite_3305s_0405562d_1", "off") %} clear {% else %} failed {% endif %}'
+    porch_motion:
+      friendly_name: "Porch Motion"
+      value_template: '{% if is_state("binary_sensor.hallway_motion_sensor", "on") %} motion {% elif is_state("binary_sensor.hallway_motion_sensor", "off") %} clear {% else %} failed {% endif %}'
+    garage_motion:
+      friendly_name: "Garage Motion"
+      value_template: '{% if is_state("binary_sensor.garage_motion_sensor", "on") %} motion {% elif is_state("binary_sensor.garage_motion_sensor", "off") %} clear {% else %} failed {% endif %}'
+    kitchen_motion:
+      friendly_name: "Kitchen Motion"
+      value_template: '{% if is_state("binary_sensor.kitchen_motion_sensor", "on") %} motion {% elif is_state("binary_sensor.kitchen_motion_sensor", "off") %} clear {% else %} failed {% endif %}'
+    front_door:
+      friendly_name: "Front Door"
+      value_template: '{% if is_state("binary_sensor.visonic_mct340_e_0b1219c2_1", "on") %} open {% elif is_state("binary_sensor.visonic_mct340_e_0b1219c2_1", "off") %} closed {% else %} failed {% endif %}'
+    kitchen_door:
+      friendly_name: "Kitchen Door"
+      value_template: '{% if is_state("binary_sensor.visonic_mct340_e_0b110e25_1", "on") %} open {% elif is_state("binary_sensor.visonic_mct340_e_0b110e25_1", "off") %} closed {% else %} failed {% endif %}'
+    back_garage_door:
+      friendly_name: "Back Garage Door"
+      value_template: '{% if is_state("binary_sensor.visonic_mct340_e_0b112478_1", "on") %} open {% elif is_state("binary_sensor.visonic_mct340_e_0b112478_1", "off") %} closed {% else %} failed {% endif %}'
+    central_door:
+      friendly_name: "Central Door"
+      value_template: '{% if is_state("binary_sensor.visonic_mct340_e_0b3ba6c3_1", "on") %} open {% elif is_state("binary_sensor.visonic_mct340_e_0b3ba6c3_1", "off") %} closed {% else %} failed {% endif %}'
+    kitchen_smoke_detector:
+      value_template: >-
+          {%- if is_state("sensor.kitchen_smoke_detector_alarm_type", "13") %}
+              Idle
+          {%- elif is_state("sensor.kitchen_smoke_detector_alarm_type", "1") %}
+              Fire Detected
+          {%- elif is_state("sensor.kitchen_smoke_detector_alarm_type", "2") %}
+              Carbon Monoxide Detected
+          {%- elif is_state("sensor.kitchen_smoke_detector_alarm_type", "12") %}
+              Alarm Testing
+          {% else %}
+              Unknown
+          {%- endif %}
+      friendly_name: "Kitchen Smoke Detector"
+    hallway_smoke_detector:
+      value_template: >-
+          {%- if is_state("sensor.hallway_smoke_detector_alarm_type", "13") %}
+              Idle
+          {%- elif is_state("sensor.hallway_smoke_detector_alarm_type", "1") %}
+              Fire Detected
+          {%- elif is_state("sensor.hallway_smoke_detector_alarm_type", "2") %}
+              Carbon Monoxide Detected
+          {%- elif is_state("sensor.hallway_smoke_detector_alarm_type", "12") %}
+              Alarm Testing
+          {% else %}
+              Unknown
+          {%- endif %}
+      friendly_name: "Hallway Smoke Detector"
+    garage_smoke_detector:
+      value_template: >-
+          {%- if is_state("sensor.garage_smoke_detector_alarm_type", "13") %}
+              Idle
+          {%- elif is_state("sensor.garage_smoke_detector_alarm_type", "1") %}
+              Fire Detected
+          {%- elif is_state("sensor.garage_smoke_detector_alarm_type", "2") %}
+              Carbon Monoxide Detected
+          {%- elif is_state("sensor.garage_smoke_detector_alarm_type", "12") %}
+              Alarm Testing
+          {% else %}
+              Unknown
+          {%- endif %}
+      friendly_name: "Garage Smoke Detector"
+    garage_smoke_detector_battery:
+      friendly_name: 'Garage Smoke Detector Battery'
+      value_template: '{{ states.zwave.garage_smoke_detector.attributes.battery_level }}'
+      unit_of_measurement: '%'
+    hallway_smoke_detector_battery:
+      friendly_name: 'Hallway Smoke Detector Battery'
+      value_template: '{{ states.zwave.hallway_smoke_detector.attributes.battery_level }}'
+      unit_of_measurement: '%'
+    kitchen_smoke_detector_battery:
+      friendly_name: 'Kitchen Smoke Detector Battery'
+      value_template: '{{ states.zwave.kitchen_smoke_detector.attributes.battery_level }}'
+      unit_of_measurement: '%'
+    thermostat_battery:
+      friendly_name: 'Thermostat Battery'
+      value_template: '{{ states.zwave.thermostat.attributes.battery_level }}'
+      unit_of_measurement: '%'

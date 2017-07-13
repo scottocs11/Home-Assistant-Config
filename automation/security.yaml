@@ -2,7 +2,7 @@
 - alias: Morning Automation
   trigger:
     platform: state
-    entity_id: sensor.hallway_motion_sensor
+    entity_id: sensor.hallway_motion
     to: 'motion'
   condition:
     condition: and
@@ -15,57 +15,18 @@
   action:
   - service: homeassistant.turn_on
     entity_id: group.insidelights
+    data:
+      brightness: 255
   - service: input_boolean.turn_on
     entity_id: input_boolean.morning_lights
-  - service: script.cameras_off
+  - service: script.inside_cameras_off
 
-- alias: Cameras And Door Notifications On At Midnight
+- alias: Inside Cameras And Door Notifications On At Midnight
   trigger:
     platform: time
-    after: '00:00:01'
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: sensor.kitchen_motion_sensor
-      state: 'clear'
-      for:
-        minutes: 10
-    - condition: state
-      entity_id: sensor.hallway_motion_sensor
-      state: 'clear'
-      for:
-        minutes: 10
-    - condition: state
-      entity_id: media_player.scottsplex
-      state: 'stopped'
+    at: '00:00:01'
   action:
-  - service: script.cameras_on
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.door_notifications
-
-- alias: Cameras On At 1am
-  trigger:
-    platform: time
-    after: '01:00:00'
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: sensor.kitchen_motion_sensor
-      state: 'clear'
-      for:
-        minutes: 10
-    - condition: state
-      entity_id: sensor.hallway_motion_sensor
-      state: 'clear'
-      for:
-        minutes: 10
-    - condition: state
-      entity_id: media_player.scottsplex
-      state: 'stopped'
-  action:
-  - service: script.cameras_on
+  - service: script.inside_cameras_on
   - service: input_boolean.turn_on
     entity_id: input_boolean.door_notifications
 
@@ -81,11 +42,11 @@
     entity_id: group.all_lights
   - service: input_boolean.turn_off
     entity_id: input_boolean.entry_lights
-  - service: script.cameras_on
+  - service: script.inside_cameras_on
   - service: input_boolean.turn_on
     entity_id: input_boolean.door_notifications
 
-- alias: Camera Motion Detection Off When Someone Arrives Home
+- alias: Inside Cameras Off When Someone Arrives Home
   trigger:
     platform: state
     entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.marvin
@@ -100,7 +61,7 @@
       after: '05:00:00'
       before: '00:00:01'
   action:
-  - service: script.cameras_off
+  - service: script.inside_cameras_off
   - service: input_boolean.turn_off
     entity_id: input_boolean.door_notifications
 
@@ -121,3 +82,30 @@
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.door_notifications
+
+- alias: Outside Cameras On When Stops Raining
+  trigger:
+    platform: state
+    entity_id: sensor.dark_sky_precip_intensity
+    to: '0'
+    for:
+      minutes: 10
+  condition:
+    condition: or
+    conditions:
+    - condition: time
+      after: '00:00:01'
+      before: '06:00:00'
+    - condition: state
+      entity_id: group.all_devices
+      state: not_home
+  action:
+  - service: script.outside_inside_cameras_on
+
+- alias: Outside Cameras Off When Starts Raining
+  trigger:
+    platform: state
+    entity_id: sensor.dark_sky_precip_intensity
+    from: '0'
+  action:
+  - service: script.outside_inside_cameras_off

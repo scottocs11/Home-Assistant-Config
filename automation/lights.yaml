@@ -1,45 +1,68 @@
 #Lights Automation
-- alias: Bedroom Light on at 7am
+- alias: Bedroom Light on and Noise Machine off at 7am
   trigger:
     platform: time
-    after: '07:00:00'
+    at: '07:00:00'
   condition:
-    condition: time
-    weekday:
-    - mon
-    - tue
-    - wed
-    - thu
-    - fri
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: device_tracker.scott
+      state: 'home'
+    - condition: state
+      entity_id: input_boolean.alarm_set
+      state: 'on'
   action:
-  - service: homeassistant.turn_on
-    entity_id: light.bedroom_light
+    service: script.morning_alarm
 
 - alias: Garage Lights On When Door Opens
   trigger:
     platform: state
     entity_id: sensor.central_door, cover.garage_door
     to: 'open'
+  condition:
+    condition: state
+    entity_id: light.garage_light
+    state: 'off'
   action:
     service: homeassistant.turn_on
     entity_id: light.garage_light
+    data:
+        brightness: 255
 
 - alias: Garage Light On With Motion
   trigger:
     platform: state
-    entity_id: sensor.garage_motion_sensor
+    entity_id: sensor.garage_motion
     to: 'motion'
+  condition:
+    condition: state
+    entity_id: light.garage_light
+    state: 'off'
   action:
     service: homeassistant.turn_on
     entity_id: light.garage_light
+    data:
+        brightness: 255
  
-- alias: Garage Light Off After 5 Minutes
+- alias: Garage Light Off at 5 Minutes
   trigger:
     platform: state
-    entity_id: sensor.garage_motion_sensor
+    entity_id: sensor.garage_motion
     to: 'clear'
     for:
       minutes: 5
+  condition:
+    condition: state
+    entity_id: light.garage_light
+    state: 'on'
   action:
     service: homeassistant.turn_off
     entity_id: light.garage_light
@@ -47,38 +70,54 @@
 - alias: Hallway Light On At Night With Motion
   trigger:
     platform: state
-    entity_id: sensor.hallway_motion_sensor
+    entity_id: sensor.hallway_motion
     to: 'motion'
   condition:
-    condition: time
-    after: '21:00:01'
-    before: '06:00:00'
+    condition: and
+    conditions:
+    - condition: time
+      after: '21:00:01'
+      before: '06:00:00'
+    - condition: state
+      entity_id: light.hallway_light
+      state: 'off'
   action:
     service: homeassistant.turn_on
     entity_id: light.hallway_light
     data:
-      brightness: 100
+        brightness: 50
 
 - alias: Hallway Light On During The Day With Motion
   trigger:
     platform: state
-    entity_id: sensor.hallway_motion_sensor
+    entity_id: sensor.hallway_motion
     to: 'motion'
   condition:
-    condition: time
-    after: '06:00:01'
-    before: '21:00:00'
+    condition: and
+    conditions:
+    - condition: time
+      after: '06:00:01'
+      before: '21:00:00'
+    - condition: state
+      entity_id: light.hallway_light
+      state: 'off'
   action:
     service: homeassistant.turn_on
     entity_id: light.hallway_light
+    data:
+        brightness: 255
 
-- alias: Hallway Light Off After 1 Minute
+- alias: Hallway Light Off at No Motion
   trigger:
     platform: state
-    entity_id: sensor.hallway_motion_sensor
+    entity_id: sensor.hallway_motion
     to: 'clear'
     for:
-      minutes: 1
+      seconds: 5
+  condition:
+    condition: state
+    entity_id: light.hallway_light
+    state: 'on'
   action:
     service: homeassistant.turn_off
     entity_id: light.hallway_light
@@ -86,11 +125,17 @@
 - alias: Kitchen Light On With Motion
   trigger:
     platform: state
-    entity_id: sensor.kitchen_motion_sensor
+    entity_id: sensor.kitchen_motion
     to: 'motion'
+  condition:
+    condition: state
+    entity_id: light.kitchen_light
+    state: 'off'
   action:
     service: homeassistant.turn_on
-    entity_id: light.kitchen_light
+    entity_id: light.kitchen_light, light.dining_light
+    data:
+        brightness: 255
 
 - alias: Coming Home Lights On
   trigger:
@@ -104,13 +149,15 @@
   action:
   - service: homeassistant.turn_on
     entity_id: group.insidelights
+    data:
+        brightness: 255
   - service: input_boolean.turn_on
     entity_id: input_boolean.entry_lights
 
 - alias: Reset Morning Lights Boolean 5am
   trigger:
     platform: time
-    after: '05:00:00'
+    at: '05:00:00'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.morning_lights
@@ -118,7 +165,7 @@
 - alias: Reset Morning Lights Boolean 7am
   trigger:
     platform: time
-    after: '07:00:00'
+    at: '07:00:00'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.morning_lights

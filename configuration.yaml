@@ -2,25 +2,68 @@ homeassistant:
   name: Home
   latitude: !secret latitude
   longitude: !secret longitude
-  elevation: 223
+  elevation: 710
   unit_system: imperial
   time_zone: America/New_York
+  customize:
+    switch.amcrestbackyardmotion:
+      emulated_hue: false
+    switch.amcrestfrontyardmotion:
+      emulated_hue: false
+    switch.amcrestgaragemotion:
+      emulated_hue: false
+    switch.amcrestlrmotion:
+      emulated_hue: false
+    switch.bedroom_receptacle_switch_13_0:
+      emulated_hue: false
+    climate.thermostat_cooling_1_12_2:
+      friendly_name: Thermostat Cooling
+    climate.thermostat_heating_1_12_1:
+      friendly_name: Thermostat Heating
+    binary_sensor.centralite_3305s_0405562d_1:
+      friendly_name: Hallway Motion Sensor Zigbee
+    binary_sensor.visonic_mct340_e_0b1219c2_1:
+      friendly_name: Front Door Zigbee
+    binary_sensor.visonic_mct340_e_0b3ba6c3_1:
+      friendly_name: Central Door Zigbee
+    binary_sensor.visonic_mct340_e_0b110e25_1:
+      friendly_name: Kitchen Door Zigbee
+    binary_sensor.visonic_mct340_e_0b112478_1:
+      friendly_name: Back Garage Door Zigbee
 
 config:
 frontend:
 logbook:
 updater:
-sun:
+#sun:
 discovery:
 history:
 panel_iframe: !include panels.yaml
 switch: !include switches.yaml
-light: !include lights.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
 camera: !include cameras.yaml
 script: !include scripts.yaml
+zwave:
+  usb_path: /dev/ttyUSB0
+  #config_path: /srv/homeassistant/lib/python3.4/site-packages/python_openzwave/ozw_config
+  new_entity_ids: true
+recorder:
+  purge_days: 3
+climate:
+  platform: zwave
+logger:
+  default: error
+  logs:
+    homeassistant.components.switch.template: fatal
+    homeassistant.components.sensor.template: error
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+zha:
+  usb_path: /dev/ttyUSB1
+  database_path: /home/homeassistant/.homeassistant/zigbee.db
 
 notify:
   platform: pushover
@@ -32,6 +75,18 @@ http:
   ip_ban_enabled: True
   login_attempts_threshold: 5
 
+emulated_hue:
+  host_ip: 192.168.1.3
+  listen_port: 80
+  expose_by_default: true
+  exposed_domains:
+  - light
+  - switch
+  - fan
+
+lutron_caseta:
+  host: 192.168.1.5
+
 device_tracker:
   platform: asuswrt
   host: 192.168.1.1
@@ -42,23 +97,27 @@ device_tracker:
   interval_seconds: 30
   consider_home: 30
 
-cover: #To be added in .39
+cover:
   platform: myq
   username: !secret myq_username
   password: !secret myq_password
   type: chamberlain
-
-mqtt:
-  broker: 127.0.0.1
-  client_id: home-assistant
-  username: homeassistant
-  password: !secret common_password
 
 ifttt:
   key: !secret ifttt_key
 
 media_player:
 - platform: plex
+  include_non_clients: true
+  scan_interval: 5
+  show_all_controls: true
+  use_custom_entity_ids: false
+  use_episode_art: true
+- platform: spotify
+  client_id: 64ab0f70ea9643678e552bdbd98fd765
+  client_secret: !secret spotify_secret
+- platform: cast
+  host: 192.168.1.12
 
 input_boolean:
   entry_lights:
@@ -70,31 +129,9 @@ input_boolean:
   morning_lights:
     name: Morning Lights
     initial: on
-
-input_slider:
-  thermostat_cool_target:
-    name: Set Cool Target
-    min: 65
-    max: 75
-    step: 1
-    icon: mdi:target
-    #restore: restore_state
-
-  thermostat_heat_target:
-    name: Set Heat Target
-    min: 65
-    max: 75
-    step: 1
-    icon: mdi:target
-    #restore: restore_state
-
-input_select:
-  thermostat_mode:
-    name: Thermostat Mode
-    options:
-      - "auto"
-      - "off"
-      - "cool"
-      - "heat"
-    icon: mdi:target
-    #restore: restore_state
+  alarm_set:
+    name: Alarm Set
+    initial: on
+  cloud_timer:
+    name: Cloud Timer
+    initial: off

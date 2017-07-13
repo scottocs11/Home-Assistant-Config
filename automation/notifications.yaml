@@ -14,18 +14,61 @@
       message: >
         {{ trigger.to_state.attributes.friendly_name }} Opened
 
-- alias: Notify When Smoke Detector Detects Smoke or Carbon Monoxide
+- alias: Notify when Cloud is at back door
   trigger:
     platform: state
-    entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector, sensor.kitchen_carbon_detector, sensor.garage_carbon_detector, sensor.hallway_carbon_detector
-    to: 'detected'
+    entity_id: sensor.porch_motion
+    to: 'motion'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: device_tracker.scott
+      state: 'home'
+    - condition: state
+      entity_id: input_boolean.cloud_timer
+      state: 'off'
+  action:
+  - service: notify.notify
+    data_template:
+      message: "Cloud is Home."
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.cloud_timer
+
+- alias: Reset Cloud Timer at 5 Minutes
+  trigger:
+    platform: state
+    entity_id: sensor.porch_motion
+    to: 'clear'
+    for:
+      minutes: 5
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.cloud_timer
+
+- alias: Notify When Smoke Detector Detects Smoke
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector
+    to: 'Fire Detected'
   action:
     service: notify.notify
     data_template:
       message: >
-        {{ trigger.to_state.attributes.friendly_name }} Alarmed!
+        {{ trigger.to_state.attributes.friendly_name }} Smoke Detected
 
-- alias: Notify When Garage Is Open After 10pm
+- alias: Notify When Smoke Detector Detects Carbon Monoxide
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector
+    to: 'Carbon Monoxide Detected'
+  action:
+    service: notify.notify
+    data_template:
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} Carbon Monoxide Detected
+
+- alias: Notify When Garage Is Open at 10pm
   trigger:
     platform: state
     entity_id: cover.garage_door
@@ -51,6 +94,16 @@
     data:
       message: "Garage Door has been open 30 minutes."
 
+- alias: Notify When Disk Use is >95%
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.disk_use_
+    above: '95'
+  action:
+    service: notify.notify
+    data:
+      message: "HASS disk use is 95% full."
+
 - alias: Notify When Home-Assistant Has An Update
   trigger:
   - platform: state
@@ -59,3 +112,14 @@
     service: notify.notify
     data:
       message: "Home-Assistant has an update."
+
+- alias: Notify When Smoke Detector Battery Low
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.kitchen_smoke_detector_battery, sensor.hallway_smoke_detector_battery, sensor.garage_smoke_detector_battery, sensor.thermostat_battery
+    below: '7'
+  action:
+    service: notify.notify
+    data_template:
+      message: >
+        {{ trigger.to_state.attributes.friendly_name }} Has Low Battery

@@ -9,7 +9,6 @@
     - light.kitchen_light
     - light.living_room_light
     - light.garage_light
-    - light.porch_light
 
   InsideLights:
     name: Inside Lights
@@ -40,9 +39,9 @@
   MotionSensors:
     name: Motion Sensors
     entities:
-    - sensor.hallway_motion_sensor
-    - sensor.garage_motion_sensor
-    - sensor.kitchen_motion_sensor
+    - sensor.hallway_motion
+    - sensor.garage_motion
+    - sensor.kitchen_motion
 
   Cameras:
     name: Cameras
@@ -51,6 +50,14 @@
     - camera.garage
     - camera.back_yard
     - camera.front_yard
+
+  MediaPlayers:
+    name: Media Players
+    entities:
+    - media_player.scottsplex
+    - media_player.spotify
+    - media_player.scotts_chromecast
+    - media_player.yamaha_receiver
 
   System:
     name: System
@@ -68,31 +75,24 @@
     - input_boolean.entry_lights
     - input_boolean.door_notifications
     - input_boolean.morning_lights
+    - input_boolean.alarm_set
 
   Thermostat:
     name: Thermostat
     entities:
-    - sensor.current_temperature
-    - sensor.thermostat_humidity
-    - sensor.cool_target
-    - input_slider.thermostat_cool_target
-    - sensor.heat_target
-    - input_slider.thermostat_heat_target
-    - sensor.thermostat_mode
-    - input_select.thermostat_mode
-    - sensor.thermostat_fan_mode
-    - sensor.thermostat_state
-
+    - climate.thermostat_cooling_1
+    - climate.thermostat_heating_1
+    - sensor.thermostat_battery
 
   SmokeDetectors:
     name: Smoke Detectors
     entities:
     - sensor.kitchen_smoke_detector
-    - sensor.kitchen_carbon_detector
+    - sensor.kitchen_smoke_detector_battery
     - sensor.garage_smoke_detector
-    - sensor.garage_carbon_detector
+    - sensor.garage_smoke_detector_battery
     - sensor.hallway_smoke_detector
-    - sensor.hallway_carbon_detector
+    - sensor.hallway_smoke_detector_battery
 
 #Tabs
   default_view:
@@ -102,15 +102,22 @@
     - group.doors
     - device_tracker.Scott
     - device_tracker.Gabe
-    - device_tracker.Marvin
+    - device_tracker.Kaleb
     - updater.updater
     - group.motionsensors
+    - switch.noise_machine
 
   CameraView:
     name: Cameras
     view: yes
     entities:
     - group.cameras
+
+  MediaView:
+    name: Media
+    view: yes
+    entities:
+    - group.mediaplayers
 
   ThermostatView:
     name: Thermostat
@@ -130,6 +137,7 @@
     entities:
     - group.automation
     - group.inputbooleans
+    - script.morning_alarm
 
   SystemView:
     name: System
