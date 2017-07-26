@@ -1,27 +1,23 @@
-#Cameras
-- platform: amcrest
-  host: 192.168.1.7
+#Amcrest Cameras
+- host: 192.168.1.7
   username: admin
   password: !secret common_password
   stream_source: snapshot
   name: Living Room
 
-- platform: amcrest
-  host: 192.168.1.8
+- host: 192.168.1.8
   username: admin
   password: !secret common_password
   stream_source: snapshot
   name: Garage
 
-- platform: amcrest
-  host: 192.168.1.9
+- host: 192.168.1.9
   username: admin
   password: !secret common_password
   stream_source: snapshot
   name: Back Yard
 
-- platform: amcrest
-  host: 192.168.1.10
+- host: 192.168.1.10
   username: admin
   password: !secret common_password
   stream_source: snapshot

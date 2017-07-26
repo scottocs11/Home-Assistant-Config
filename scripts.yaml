@@ -43,15 +43,26 @@
        data:
          entity_id: media_player.spotify
          source: Bedroom Dot
+     - service: media_player.play_media
+       data:
+         entity_id: media_player.spotify
+         media_content_id: spotify:user:spotify:playlist:37i9dQZEVXcUMSdfp9xj29
+         media_content_type: playlist
      - service: media_player.shuffle_set
        data:
          entity_id: media_player.spotify
          shuffle: true
-     - service: media_player.play_media
-       data:
-         entity_id: media_player.spotify
-         media_content_id: spotify:user:saltyjavvie1:playlist:1Y5GrrPQMNuBKhulyx5Bfq
-         media_content_type: playlist
      - service: media_player.media_next_track
        data:
          entity_id: media_player.spotify
+ lightstrip_plex:
+   sequence:
+     - service: light.turn_on
+       data:
+         entity_id: light.lightstrip
+         rgb_color: [255,255,255]
+         brightness: 3
+     - service: light.turn_on
+       data:
+         entity_id: light.lightstrip
+         color_temp: 154

@@ -1,5 +1,6 @@
 #Security Automation
-- alias: Morning Automation
+- id: MorningAutomation
+  alias: Morning Automation
   trigger:
     platform: state
     entity_id: sensor.hallway_motion
@@ -21,7 +22,8 @@
     entity_id: input_boolean.morning_lights
   - service: script.inside_cameras_off
 
-- alias: Inside Cameras And Door Notifications On At Midnight
+- id: InsideCamerasAndDoorNotificationsOnAtMidnight
+  alias: Inside Cameras And Door Notifications On At Midnight
   trigger:
     platform: time
     at: '00:00:01'
@@ -30,7 +32,8 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.door_notifications
 
-- alias: Actions When Everyone Leaves
+- id: ActionsWhenEveryoneLeaves
+  alias: Actions When Everyone Leaves
   trigger:
     platform: state
     entity_id: group.all_devices
@@ -46,10 +49,11 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.door_notifications
 
-- alias: Inside Cameras Off When Someone Arrives Home
+- id: InsideCamerasOffWhenSomeoneArrivesHome
+  alias: Inside Cameras Off When Someone Arrives Home
   trigger:
     platform: state
-    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.marvin
+    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.mathia
     to: 'home'
   condition:
     condition: and
@@ -65,10 +69,11 @@
   - service: input_boolean.turn_off
     entity_id: input_boolean.door_notifications
 
-- alias: Door Notifications Off When Someone Arrives Home
+- id: DoorNotificationsOffWhenSomeoneArrivesHome
+  alias: Door Notifications Off When Someone Arrives Home
   trigger:
     platform: state
-    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.marvin
+    entity_id: device_tracker.scott, device_tracker.gabe, device_tracker.mathia
     to: 'home'
   condition:
     condition: and
@@ -83,7 +88,8 @@
   - service: input_boolean.turn_off
     entity_id: input_boolean.door_notifications
 
-- alias: Outside Cameras On When Stops Raining
+- id: OutsideCamerasOnWhenStopsRaining
+  alias: Outside Cameras On When Stops Raining
   trigger:
     platform: state
     entity_id: sensor.dark_sky_precip_intensity
@@ -102,7 +108,8 @@
   action:
   - service: script.outside_inside_cameras_on
 
-- alias: Outside Cameras Off When Starts Raining
+- id: OutsideCamerasOffWhenStartsRaining
+  alias: Outside Cameras Off When Starts Raining
   trigger:
     platform: state
     entity_id: sensor.dark_sky_precip_intensity

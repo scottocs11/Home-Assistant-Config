@@ -19,3 +19,6 @@ plexpy:
   title: 'PlexPy'
   icon: mdi:database
   url: 'http://REDACTED.duckdns.org:8181'
+trakt:
+  title: 'Trakt'
+  url: 'http://trakt-for-plex.github.io/configuration'

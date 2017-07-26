@@ -1,5 +1,6 @@
 #Notifications Automation
-- alias: Notify When Door Opens If No One Is Home
+- id: NotifyWhenDoorOpens
+  alias: Notify When Door Opens If No One Is Home
   trigger:
     platform: state
     entity_id: sensor.kitchen_door, sensor.central_door, sensor.front_door, sensor.back_garage_door, cover.garage_door
@@ -14,7 +15,8 @@
       message: >
         {{ trigger.to_state.attributes.friendly_name }} Opened
 
-- alias: Notify when Cloud is at back door
+- id: NotifyWhenCloudIsHome
+  alias: Notify when Cloud is at back door
   trigger:
     platform: state
     entity_id: sensor.porch_motion
@@ -35,7 +37,8 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.cloud_timer
 
-- alias: Reset Cloud Timer at 5 Minutes
+- id: ResetCloudTimerAfter5Mins
+  alias: Reset Cloud Timer after 5 Minutes
   trigger:
     platform: state
     entity_id: sensor.porch_motion
@@ -46,7 +49,8 @@
     service: input_boolean.turn_off
     entity_id: input_boolean.cloud_timer
 
-- alias: Notify When Smoke Detector Detects Smoke
+- id: NotifyWhenSmokeDetectorDetectsSmoke
+  alias: Notify When Smoke Detector Detects Smoke
   trigger:
     platform: state
     entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector
@@ -57,7 +61,8 @@
       message: >
         {{ trigger.to_state.attributes.friendly_name }} Smoke Detected
 
-- alias: Notify When Smoke Detector Detects Carbon Monoxide
+- id: NotifyWhenSmokeDetectorDetectsCarbon
+  alias: Notify When Smoke Detector Detects Carbon Monoxide
   trigger:
     platform: state
     entity_id: sensor.kitchen_smoke_detector, sensor.garage_smoke_detector, sensor.hallway_smoke_detector
@@ -68,7 +73,8 @@
       message: >
         {{ trigger.to_state.attributes.friendly_name }} Carbon Monoxide Detected
 
-- alias: Notify When Garage Is Open at 10pm
+- id: NotifyWhenGarageIsOpenAfter10PM
+  alias: Notify When Garage Is Open after 10pm
   trigger:
     platform: state
     entity_id: cover.garage_door
@@ -82,7 +88,8 @@
     data:
       message: "Garage Door is still open."
 
-- alias: Notify When Garage Is Open For 30 minutes
+- id: NotifyWhenGarageIsOpenFor30Mins
+  alias: Notify When Garage Is Open For 30 minutes
   trigger:
     platform: state
     entity_id: cover.garage_door
@@ -94,7 +101,8 @@
     data:
       message: "Garage Door has been open 30 minutes."
 
-- alias: Notify When Disk Use is >95%
+- id: NotifyWhenDiskUseis95
+  alias: Notify When Disk Use is >95%
   trigger:
     platform: numeric_state
     entity_id: sensor.disk_use_
@@ -104,7 +112,8 @@
     data:
       message: "HASS disk use is 95% full."
 
-- alias: Notify When Home-Assistant Has An Update
+- id: NotifyWhenUpdateAvailable
+  alias: Notify When Home-Assistant Has An Update
   trigger:
   - platform: state
     entity_id: updater.updater
@@ -113,7 +122,8 @@
     data:
       message: "Home-Assistant has an update."
 
-- alias: Notify When Smoke Detector Battery Low
+- id: NotifyWhenSmokeDetectorBatteryLow
+  alias: Notify When Smoke Detector Battery Low
   trigger:
     platform: numeric_state
     entity_id: sensor.kitchen_smoke_detector_battery, sensor.hallway_smoke_detector_battery, sensor.garage_smoke_detector_battery, sensor.thermostat_battery

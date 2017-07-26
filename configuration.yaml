@@ -35,18 +35,20 @@ config:
 frontend:
 logbook:
 updater:
+hassio:
 #sun:
-discovery:
+#discovery:
 history:
 panel_iframe: !include panels.yaml
 switch: !include switches.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
-camera: !include cameras.yaml
+amcrest: !include cameras.yaml
 script: !include scripts.yaml
 zwave:
   usb_path: /dev/ttyUSB0
+  new_entity_ids: true
 recorder:
   purge_days: 3
 climate:
@@ -56,12 +58,12 @@ logger:
   logs:
     homeassistant.components.switch.template: fatal
     homeassistant.components.sensor.template: error
-ffmpeg:
-  ffmpeg_bin: /usr/bin/ffmpeg
+camera:
+ platform: amcrest
 
 zha:
   usb_path: /dev/ttyUSB1
-  database_path: /home/homeassistant/.homeassistant/zigbee.db
+  database_path: /config/zigbee.db
 
 notify:
   platform: pushover
@@ -88,7 +90,6 @@ lutron_caseta:
 device_tracker:
   platform: asuswrt
   host: 192.168.1.1
-  protocol: telnet
   username: admin
   password: !secret common_password
   track_new_devices: no
@@ -112,7 +113,7 @@ media_player:
   use_custom_entity_ids: false
   use_episode_art: true
 - platform: spotify
-  client_id: 64ab0f70ea9643678e552bdbd98fd765
+  client_id: !secret spotify_id
   client_secret: !secret spotify_secret
 - platform: cast
   host: 192.168.1.12
@@ -133,3 +134,11 @@ input_boolean:
   cloud_timer:
     name: Cloud Timer
     initial: off
+
+light:
+  - platform: yeelight
+    devices:
+      192.168.1.21:
+        name: Lightstrip
+        transition: 1000
+        use_music_mode: True

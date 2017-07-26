@@ -1,14 +1,17 @@
 #Plex Automation
-- alias: Plex Playing
+- id: PlexPlaying
+  alias: Plex Playing
   trigger:
     - platform: state
       entity_id: media_player.scottsplex
       to: 'playing'
   action:
-      service: homeassistant.turn_off
+    - service: homeassistant.turn_off
       entity_id: light.living_room_light, light.dining_light, light.hallway_light
+    - service: script.lightstrip_plex
 
-- alias: Plex Paused
+- id: PlexPaused
+  alias: Plex Paused
   trigger:
     - platform: state
       entity_id: media_player.scottsplex
@@ -16,18 +19,19 @@
       for:
         seconds: 5
   action:
-      service: homeassistant.turn_on
-      entity_id: light.living_room_light
+    - service: light.turn_on
       data:
-        brightness: 50
+        entity_id: light.lightstrip
+        effect: Slowdown
 
-- alias: Plex Stopped
+- id: PlexStopped
+  alias: Plex Stopped
   trigger:
     - platform: state
       entity_id: media_player.scottsplex
       to: 'idle'
   action:
-      service: homeassistant.turn_on
-      entity_id: light.living_room_light
+    - service: light.turn_on
       data:
-        brightness: 50
+        entity_id: light.lightstrip
+        effect: Slowdown

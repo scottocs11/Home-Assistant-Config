@@ -37,3 +37,8 @@
       turn_off:
         service: switch.turn_off
         entity_id: switch.bedroom_receptacle_switch
+
+- platform: xiaomi_vacuum
+  name: 'Vacuum'
+  host: 192.168.1.22
+  token: !secret vacuum_token

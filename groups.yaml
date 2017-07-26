@@ -9,6 +9,7 @@
     - light.kitchen_light
     - light.living_room_light
     - light.garage_light
+    - light.lightstrip
 
   InsideLights:
     name: Inside Lights
@@ -18,6 +19,7 @@
     - light.kitchen_light
     - light.living_room_light
     - light.hallway_light
+    - light.lightstrip
     
   Automation:
     name: Automation
@@ -42,6 +44,7 @@
     - sensor.hallway_motion
     - sensor.garage_motion
     - sensor.kitchen_motion
+    - sensor.porch_motion
 
   Cameras:
     name: Cameras
@@ -55,9 +58,9 @@
     name: Media Players
     entities:
     - media_player.scottsplex
+    - sensor.plex
     - media_player.spotify
     - media_player.scotts_chromecast
-    - media_player.yamaha_receiver
 
   System:
     name: System
@@ -100,12 +103,14 @@
     entities:
     - group.alllights
     - group.doors
-    - device_tracker.Scott
-    - device_tracker.Gabe
-    - device_tracker.Kaleb
+    - device_tracker.scott
+    - device_tracker.gabe
+    - device_tracker.mathia
     - updater.updater
     - group.motionsensors
     - switch.noise_machine
+    - switch.vacuum
+    - sensor.hass_update_available
 
   CameraView:
     name: Cameras

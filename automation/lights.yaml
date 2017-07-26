@@ -1,5 +1,6 @@
 #Lights Automation
-- alias: Bedroom Light on and Noise Machine off at 7am
+- id: 7amBedroom
+  alias: Bedroom Light on and Noise Machine off at 7am
   trigger:
     platform: time
     at: '07:00:00'
@@ -22,7 +23,21 @@
   action:
     service: script.morning_alarm
 
-- alias: Garage Lights On When Door Opens
+- id: LightstripOffAtMidnight
+  alias: Lightstrip off at midnight if Plex idle
+  trigger:
+    platform: time
+    at: '00:00:01'
+  condition:
+    condition: state
+    entity_id: media_player.scottsplex
+    state: 'idle'
+  action:
+    service: light.turn_off
+    entity_id: light.lightstrip
+
+- id: GarageLightsOnWhenDoorOpens
+  alias: Garage Lights On When Door Opens
   trigger:
     platform: state
     entity_id: sensor.central_door, cover.garage_door
@@ -37,7 +52,8 @@
     data:
         brightness: 255
 
-- alias: Garage Light On With Motion
+- id: GarageLightOnWithMotion
+  alias: Garage Light On With Motion
   trigger:
     platform: state
     entity_id: sensor.garage_motion
@@ -52,7 +68,8 @@
     data:
         brightness: 255
  
-- alias: Garage Light Off at 5 Minutes
+- id: GarageLightOffAfter5Mins
+  alias: Garage Light Off after 5 Minutes
   trigger:
     platform: state
     entity_id: sensor.garage_motion
@@ -67,7 +84,8 @@
     service: homeassistant.turn_off
     entity_id: light.garage_light
 
-- alias: Hallway Light On At Night With Motion
+- id: HallwayLightOnWithMotion-Night
+  alias: Hallway Light On At Night With Motion
   trigger:
     platform: state
     entity_id: sensor.hallway_motion
@@ -87,7 +105,8 @@
     data:
         brightness: 50
 
-- alias: Hallway Light On During The Day With Motion
+- id: HallwayLightOnWithMotion-Day
+  alias: Hallway Light On During The Day With Motion
   trigger:
     platform: state
     entity_id: sensor.hallway_motion
@@ -107,7 +126,8 @@
     data:
         brightness: 255
 
-- alias: Hallway Light Off at No Motion
+- id: HallwayLightOffNoMotion
+  alias: Hallway Light Off after No Motion
   trigger:
     platform: state
     entity_id: sensor.hallway_motion
@@ -122,7 +142,8 @@
     service: homeassistant.turn_off
     entity_id: light.hallway_light
 
-- alias: Kitchen Light On With Motion
+- id: KitchenLightOnWithMotion
+  alias: Kitchen Light On With Motion
   trigger:
     platform: state
     entity_id: sensor.kitchen_motion
@@ -133,11 +154,12 @@
     state: 'off'
   action:
     service: homeassistant.turn_on
-    entity_id: light.kitchen_light, light.dining_light
+    entity_id: light.kitchen_light
     data:
         brightness: 255
 
-- alias: Coming Home Lights On
+- id: ComingHomeLightsOn
+  alias: Coming Home Lights On
   trigger:
     platform: state
     entity_id: sensor.front_door, sensor.central_door
@@ -154,7 +176,8 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.entry_lights
 
-- alias: Reset Morning Lights Boolean 5am
+- id: ResetMorningLightsBoolean5am
+  alias: Reset Morning Lights Boolean 5am
   trigger:
     platform: time
     at: '05:00:00'
